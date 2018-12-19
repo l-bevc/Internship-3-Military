@@ -6,13 +6,19 @@ namespace Military
 {
     public static class TotalFuelConsumption
     {
-        public static decimal CalculationOfTotalFuel(decimal fuelConsumption, int capacity, decimal distance, int numberOfSoldiers)
+        public static decimal CalculationOfTotalFuel(decimal fuelConsumption, int capacity, int distance, int numberOfSoldiers)
         {
-            var fuelForOneRoute = distance / 100 * fuelConsumption * 2;
-            int timeOfFullVehicle = numberOfSoldiers / capacity;
+            var fuelForOneRoute = fuelConsumption * distance / 100;
+            var totalFuel = fuelForOneRoute;
+            var timeOfFullVehicle = numberOfSoldiers / capacity;
+            if (timeOfFullVehicle > 0)
+            {
+                totalFuel += fuelForOneRoute*timeOfFullVehicle*2;
+            }
+
             if (numberOfSoldiers % capacity != 0)
-                timeOfFullVehicle++;
-            return (timeOfFullVehicle * fuelForOneRoute);
+                totalFuel += timeOfFullVehicle;
+            return totalFuel;
         }
     }
 }

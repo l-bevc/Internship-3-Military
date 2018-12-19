@@ -6,17 +6,18 @@ namespace Military
 {
     public abstract class Vehicle
     {
-        public int Id { get; set; }
+        public static int Id = 0;
         public decimal Weight { get; set; }
         public decimal AverageSpeed { get; set; }
         public decimal FuelConsumption { get; set; }
         public int Capacity { get; set; }
         public static int NumberOfSoldiers { get; set; }
-        public static decimal ShortestDistance { get; set; }
+        public static int ShortestDistance { get; set; }
+        public static int ShortestDistanceFromAll = -5;
 
-        public Vehicle(int id, decimal weight, decimal averageSpeed, decimal fuelConsumption, int capacity)
+        public Vehicle( decimal weight, decimal averageSpeed, decimal fuelConsumption, int capacity)
         {
-            this.Id = id;
+            Id++;
             this.Weight = weight;
             this.AverageSpeed = averageSpeed;
             this.FuelConsumption = fuelConsumption;
@@ -25,7 +26,7 @@ namespace Military
 
         public virtual string Print()
         {
-            return $"Id: {Id}; Weight: {Weight}; Average Speed: {AverageSpeed}; Fuel consumption: {FuelConsumption} Capacity: {Capacity} ";
+            return $"Id: {Id}; Weight: {Weight}; Average Speed: {AverageSpeed}; Fuel consumption: {FuelConsumption}; Capacity: {Capacity}; ";
         }
 
 
