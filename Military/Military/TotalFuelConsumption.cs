@@ -18,6 +18,7 @@ namespace Military
 
             if (numberOfSoldiers % capacity != 0)
                 totalFuel += timeOfFullVehicle;
+
             return totalFuel;
         }
     }

@@ -7,6 +7,7 @@ namespace Military
 {
     public class Amfibia: Vehicle, IDriveable, ISwimmable
     {
+
         public Amfibia(decimal weight, decimal averageSpeed, decimal fuelConsumption, int capacity)
             : base( weight, averageSpeed, fuelConsumption=70, capacity=20)
         {
@@ -42,6 +43,19 @@ namespace Military
             Move(ShortestDistance);
             Swim(ShortestDistance);
             var totalFuelConsumption = TotalFuelConsumption.CalculationOfTotalFuel(70, 20, ShortestDistance, NumberOfSoldiers);
+            if (minimalConsumption == 0)
+            {
+                minimalConsumption = totalFuelConsumption;
+                BestVehicle = new Amfibia(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
+            }
+            else
+            {
+                if (minimalConsumption > totalFuelConsumption)
+                {
+                    minimalConsumption = totalFuelConsumption;
+                    BestVehicle = new Amfibia(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
+                }
+            }
             return base.Print() + $"Total fuel: {totalFuelConsumption}";
         }
 

@@ -28,6 +28,19 @@ namespace Military
             Input();
             Swim(ShortestDistance);
             var totalFuelConsumption = TotalFuelConsumption.CalculationOfTotalFuel(200, 50, ShortestDistance, NumberOfSoldiers);
+            if (minimalConsumption == 0)
+            {
+                minimalConsumption = totalFuelConsumption;
+                BestVehicle = new Warship(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
+            }
+            else
+            {
+                if (minimalConsumption > totalFuelConsumption)
+                {
+                    minimalConsumption = totalFuelConsumption;
+                    BestVehicle = new Warship(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
+                }
+            }
             return base.Print() + $"Total fuel: {totalFuelConsumption}";
         }
 
