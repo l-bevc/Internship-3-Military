@@ -27,20 +27,9 @@ namespace Military
         {
             Input();
             Swim(ShortestDistance);
-            var totalFuelConsumption = TotalFuelConsumption.CalculationOfTotalFuel(200, 50, ShortestDistance, NumberOfSoldiers);
-            if (minimalConsumption == 0)
-            {
-                minimalConsumption = totalFuelConsumption;
-                BestVehicle = new Warship(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
-            }
-            else
-            {
-                if (minimalConsumption > totalFuelConsumption)
-                {
-                    minimalConsumption = totalFuelConsumption;
-                    BestVehicle = new Warship(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
-                }
-            }
+            var totalFuelConsumption = CalculationOfTotalFuel(ShortestDistance, NumberOfSoldiers);
+            if (Trip.bestVehicle(totalFuelConsumption))
+                Trip.BestVehicle = new Warship(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
             return base.Print() + $"Total fuel: {totalFuelConsumption}";
         }
 
@@ -51,16 +40,11 @@ namespace Military
             var periods = time / 10;
             for (var i = 0; i < periods; i++)
             {
-                if (RandomNumber(1, 101) <= 50)
+                if (Trip.RandomNumber(1, 101) <= 50)
                     ShortestDistance += 3;
             }
         }
 
-        public static int RandomNumber(int min, int max)
-        {
-            Random random = new Random();
-            return random.Next(min, max);
-        }
     }
 }
 

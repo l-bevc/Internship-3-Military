@@ -14,8 +14,6 @@ namespace Military
         public static int NumberOfSoldiers { get; set; }
         public static int ShortestDistance { get; set; }
         public static int ShortestDistanceFromAll = -5;
-        public static Vehicle BestVehicle { get; set; }
-        public decimal minimalConsumption = 0;
 
         public Vehicle( decimal weight, decimal averageSpeed, decimal fuelConsumption, int capacity)
         {
@@ -36,7 +34,14 @@ namespace Military
             return $"Id: {Id}; Weight: {Weight}; Average Speed: {AverageSpeed}; Fuel consumption: {FuelConsumption}; Capacity: {Capacity}; ";
         }
 
-
+        public decimal CalculationOfTotalFuel( int distance, int numberOfSoldiers)
+        {
+            var fuelForOneRoute = FuelConsumption * distance / 100;
+            var lastTrip = numberOfSoldiers % Capacity;
+            var numberOfTrips = numberOfSoldiers / Capacity;
+            var totalFuel = (lastTrip != 0)? (fuelForOneRoute*numberOfTrips*2+fuelForOneRoute) : (fuelForOneRoute*numberOfTrips*2-fuelForOneRoute);
+            return totalFuel;
+        }
 
     }
 }

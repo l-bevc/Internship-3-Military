@@ -17,31 +17,19 @@ namespace Military
         {
             Console.WriteLine("Enter shortest distance for tank:");
             ShortestDistance = int.Parse(Console.ReadLine());
-            if (ShortestDistanceFromAll<0)
+            if (ShortestDistanceFromAll < 0)
                 ShortestDistanceFromAll = ShortestDistance;
             else if (ShortestDistanceFromAll > ShortestDistance)
                 ShortestDistanceFromAll = ShortestDistance;
-
         }
 
         public override string Print()
         {
             Input();
             Move(ShortestDistance);
-            var totalFuelConsumption = TotalFuelConsumption.CalculationOfTotalFuel(30, 6, ShortestDistance, NumberOfSoldiers );
-            if (minimalConsumption == 0)
-            {
-                minimalConsumption = totalFuelConsumption;
-                BestVehicle = new Tank(this.Weight,this.AverageSpeed, this.FuelConsumption,this.Capacity);
-            }
-            else
-            {
-                if (minimalConsumption > totalFuelConsumption)
-                {
-                    minimalConsumption = totalFuelConsumption;
-                    BestVehicle = new Tank(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
-                }
-            }
+            var totalFuelConsumption = CalculationOfTotalFuel(ShortestDistance, NumberOfSoldiers );
+            if (Trip.bestVehicle(totalFuelConsumption))
+                Trip.BestVehicle = new Tank(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
             return base.Print() + $"Total fuel: {totalFuelConsumption}";
         }
 
@@ -51,15 +39,10 @@ namespace Military
             int possibilitiesOfBarriers = ShortestDistance / 10;
             for (var i = 0; i < possibilitiesOfBarriers; i++)
             {
-                if (RandomNumber(1, 101) <= 30)
+                if (Trip.RandomNumber(1, 101) <= 30)
                     ShortestDistance += 5;
             }
         }
 
-        public static int RandomNumber(int min, int max)
-        {
-            Random random = new Random();
-            return random.Next(min, max);
-        }
     }
 }

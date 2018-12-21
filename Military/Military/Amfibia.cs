@@ -15,76 +15,58 @@ namespace Military
        
         public static void Input()
         {
-            var shortestDistanceWaterAmfibia = ShortestDistanceFromAll;
-            var shortestDistanceLandAmfibia = ShortestDistanceFromAll;
+            Trip.distanceGround = ShortestDistanceFromAll;
+            Trip.distanceWater = ShortestDistanceFromAll;
             if (ShortestDistanceFromAll >= 0)
             {
-                while ((shortestDistanceLandAmfibia + shortestDistanceWaterAmfibia) > ShortestDistanceFromAll)
+                while ((Trip.distanceWater + Trip.distanceGround) > ShortestDistanceFromAll)
                 {
                     Console.WriteLine("Enter shortest distance for amfibia water part:");
-                    shortestDistanceWaterAmfibia = int.Parse(Console.ReadLine());
+                    Trip.distanceWater = int.Parse(Console.ReadLine());
                     Console.WriteLine("Enter shortest distance for amfibia land part:");
-                    shortestDistanceLandAmfibia = int.Parse(Console.ReadLine());
+                    Trip.distanceGround = int.Parse(Console.ReadLine());
                 }
             }
             else
             {
                 Console.WriteLine("Enter shortest distance for amfibia water part:");
-                shortestDistanceWaterAmfibia = int.Parse(Console.ReadLine());
+                Trip.distanceWater = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter shortest distance for amfibia land part:");
-                shortestDistanceLandAmfibia = int.Parse(Console.ReadLine());
+                Trip.distanceGround = int.Parse(Console.ReadLine());
             }
-            ShortestDistance = shortestDistanceLandAmfibia + shortestDistanceWaterAmfibia;
+            ShortestDistance = Trip.distanceGround+Trip.distanceWater;
         }
 
         public override string Print()
         {
             Input();
-            Move(ShortestDistance);
-            Swim(ShortestDistance);
-            var totalFuelConsumption = TotalFuelConsumption.CalculationOfTotalFuel(70, 20, ShortestDistance, NumberOfSoldiers);
-            if (minimalConsumption == 0)
-            {
-                minimalConsumption = totalFuelConsumption;
-                BestVehicle = new Amfibia(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
-            }
-            else
-            {
-                if (minimalConsumption > totalFuelConsumption)
-                {
-                    minimalConsumption = totalFuelConsumption;
-                    BestVehicle = new Amfibia(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
-                }
-            }
+            Move(Trip.distanceGround);
+            Swim(Trip.distanceWater);
+            var totalFuelConsumption = CalculationOfTotalFuel(ShortestDistance, NumberOfSoldiers);
+            if (Trip.bestVehicle(totalFuelConsumption)) 
+                Trip.BestVehicle= new Amfibia(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
             return base.Print() + $"Total fuel: {totalFuelConsumption}";
         }
 
         public void Move(int distance)
         {
-            distance = ShortestDistance;
             int possibilitiesOfBarriers = ShortestDistance / 10;
             for (var i = 0; i < possibilitiesOfBarriers; i++)
             {
-                if (RandomNumber(1, 101) <= 30)
+                if (Trip.RandomNumber(1, 101) <= 30)
                     ShortestDistance += 5;
             }
         }
         public void Swim(int distance)
         {
-            distance = ShortestDistance;
             var time = distance / AverageSpeed * 60;
             var periods = time / 10;
             for (var i = 0; i < periods; i++)
             {
-                if (RandomNumber(1, 101) <= 50)
+                if (Trip.RandomNumber(1, 101) <= 50)
                     ShortestDistance += 3;
             }
         }
 
-        public static int RandomNumber(int min, int max)
-        {
-            Random random = new Random();
-            return random.Next(min, max);
-        }
     }
 }
