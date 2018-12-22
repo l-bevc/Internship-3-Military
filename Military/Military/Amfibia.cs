@@ -11,6 +11,8 @@ namespace Military
         public Amfibia(decimal weight, decimal averageSpeed, decimal fuelConsumption, int capacity)
             : base( weight, averageSpeed, fuelConsumption=70, capacity=20)
         {
+            this.Weight = weight;
+            this.AverageSpeed = averageSpeed;
         }
        
         public static void Input()

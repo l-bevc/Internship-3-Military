@@ -11,6 +11,8 @@ namespace Military
         public Warship( decimal weight, decimal averageSpeed, decimal fuelConsumption, int capacity)
             : base(weight, averageSpeed, fuelConsumption=200, capacity=50)
         {
+            this.Weight = weight;
+            this.AverageSpeed = averageSpeed;
         }
 
         public static void Input()

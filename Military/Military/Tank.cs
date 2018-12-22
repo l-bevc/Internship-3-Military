@@ -9,8 +9,9 @@ namespace Military
         
         public Tank(decimal weight, decimal averageSpeed, decimal fuelConsumption, int capacity)
             : base( weight, averageSpeed, fuelConsumption=30, capacity=6)
-        {  
-           
+        {
+            this.Weight = weight;
+            this.AverageSpeed = averageSpeed;
         }
 
         public static void Input()

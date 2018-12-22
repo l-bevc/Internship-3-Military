@@ -13,11 +13,23 @@ namespace Military
         {
             Console.WriteLine("Enter number of soldiers:");
             Vehicle.NumberOfSoldiers = int.Parse(Console.ReadLine());
-            var firstTank= new Tank(500000,100,5,5);
+            Console.WriteLine("Enter average speed for tank:");
+            var speedTank = decimal.Parse(Console.ReadLine());
+            Console.WriteLine("Enter weight of tank:");
+            var weightTank = decimal.Parse(Console.ReadLine());
+            var firstTank= new Tank(weightTank,speedTank,5,5);
             Console.WriteLine(firstTank.Print());
-            var firstWarship= new Warship(500000,150, 1,1);
+            Console.WriteLine("Enter average speed for warship:");
+            var speedWarship = decimal.Parse(Console.ReadLine());
+            Console.WriteLine("Enter weight of warship:");
+            var weightWarship = decimal.Parse(Console.ReadLine());
+            var firstWarship= new Warship(weightWarship,speedWarship, 1,1);
             Console.WriteLine(firstWarship.Print());
-            var firstAmfibia= new Amfibia(20000000,10000, 10,10);
+            Console.WriteLine("Enter average speed amfibia:");
+            var speedAmfibia = decimal.Parse(Console.ReadLine());
+            Console.WriteLine("Enter weight of amfibia:");
+            var weightAmfibia = decimal.Parse(Console.ReadLine());
+            var firstAmfibia= new Amfibia(weightAmfibia,speedAmfibia, 10,10);
             Console.WriteLine(firstAmfibia.Print());
             Console.WriteLine("Best vehicle is: ");
             Console.WriteLine(Trip.BestVehicle.PrintBestVehicle());
