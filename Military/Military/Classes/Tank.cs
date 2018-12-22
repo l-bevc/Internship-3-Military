@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Collections;
+using Military.Enums;
 
 namespace Military
 {
-    public class Warship: Vehicle, ISwimmable
+    public class Tank: Vehicle, IDriveable
     {
         
-        public Warship( decimal weight, decimal averageSpeed, decimal fuelConsumption, int capacity)
-            : base(weight, averageSpeed, fuelConsumption=200, capacity=50)
+        public Tank(decimal weight, decimal averageSpeed)
+            : base( weight, averageSpeed)
         {
             this.Weight = weight;
             this.AverageSpeed = averageSpeed;
+            this.Capacity = (int) CapacityEnum.Tank;
+            this.FuelConsumption = (int) FuelEnum.Tank;
+
         }
 
         public static void Input()
         {
-            Console.WriteLine("Enter shortest distance for warship:");
+            Console.WriteLine("Enter shortest distance for tank:");
             ShortestDistance = int.Parse(Console.ReadLine());
             if (ShortestDistanceFromAll < 0)
                 ShortestDistanceFromAll = ShortestDistance;
@@ -28,25 +31,23 @@ namespace Military
         public override string Print()
         {
             Input();
-            Swim(ShortestDistance);
-            var totalFuelConsumption = CalculationOfTotalFuel(ShortestDistance, NumberOfSoldiers);
+            Move(ShortestDistance);
+            var totalFuelConsumption = CalculationOfTotalFuel(ShortestDistance, NumberOfSoldiers );
             if (Trip.bestVehicle(totalFuelConsumption))
-                Trip.BestVehicle = new Warship(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
+                Trip.BestVehicle = new Tank(this.Weight, this.AverageSpeed);
             return base.Print() + $"Total fuel: {totalFuelConsumption}";
         }
 
-        public void Swim(int distance)
+        public void Move(int distance)
         {
             distance = ShortestDistance;
-            var time = distance / AverageSpeed * 60;
-            var periods = time / 10;
-            for (var i = 0; i < periods; i++)
+            int possibilitiesOfBarriers = ShortestDistance / 10;
+            for (var i = 0; i < possibilitiesOfBarriers; i++)
             {
-                if (Trip.RandomNumber(1, 101) <= 50)
-                    ShortestDistance += 3;
+                if (Trip.RandomNumber(1, 101) <= 30)
+                    ShortestDistance += 5;
             }
         }
 
     }
 }
-

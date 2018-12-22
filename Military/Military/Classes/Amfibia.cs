@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Military.Enums;
 
 namespace Military
 {
     public class Amfibia: Vehicle, IDriveable, ISwimmable
     {
 
-        public Amfibia(decimal weight, decimal averageSpeed, decimal fuelConsumption, int capacity)
-            : base( weight, averageSpeed, fuelConsumption=70, capacity=20)
+        public Amfibia(decimal weight, decimal averageSpeed)
+            : base( weight, averageSpeed)
         {
             this.Weight = weight;
             this.AverageSpeed = averageSpeed;
+            this.Capacity = (int) CapacityEnum.Amfibia;
+            this.FuelConsumption = (int) FuelEnum.Amfibia;
         }
        
         public static void Input()
@@ -46,7 +49,7 @@ namespace Military
             Swim(Trip.distanceWater);
             var totalFuelConsumption = CalculationOfTotalFuel(ShortestDistance, NumberOfSoldiers);
             if (Trip.bestVehicle(totalFuelConsumption)) 
-                Trip.BestVehicle= new Amfibia(this.Weight, this.AverageSpeed, this.FuelConsumption, this.Capacity);
+                Trip.BestVehicle= new Amfibia(this.Weight, this.AverageSpeed);
             return base.Print() + $"Total fuel: {totalFuelConsumption}";
         }
 

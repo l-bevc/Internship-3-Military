@@ -15,13 +15,11 @@ namespace Military
         public static int ShortestDistance { get; set; }
         public static int ShortestDistanceFromAll = -5;
 
-        public Vehicle( decimal weight, decimal averageSpeed, decimal fuelConsumption, int capacity)
+        public Vehicle( decimal weight, decimal averageSpeed)
         {
             Id++;
             this.Weight = weight;
             this.AverageSpeed = averageSpeed;
-            this.FuelConsumption = fuelConsumption;
-            this.Capacity = capacity;
         }
 
         public virtual string Print()
